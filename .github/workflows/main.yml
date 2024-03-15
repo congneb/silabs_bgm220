@@ -29,6 +29,11 @@ jobs:
 
     - name: Install arduino-cli
       run: |
+        ls scripts
+        echo "================="
+        ls 
+        arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+        echo "================="
         mkdir -p tools
         curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
         tar -xvf arduino_cli.tgz -C tools
@@ -39,12 +44,10 @@ jobs:
 
     - name: Install gcc_12
       run: |
-        # mkdir -p arduino/packages/SiliconLabs/tools/gcc_12
-        mkdir -p tools/gcc_12
+        mkdir -p arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
-        tar -xvf gcc.tgz -C tools/gcc_12
-        ls tools/gcc_12
-        # mv 
+        tar -xvf gcc.tgz -C arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        mv arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi/12.2.rel1
 
     - name: Compile example
       run: |
