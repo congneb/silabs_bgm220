@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install ninja-build
+      - run: ninja --version
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - run: choco install ninja
+      - run: ninja --version
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - run: brew install ninja 
+      - run: ninja --version
