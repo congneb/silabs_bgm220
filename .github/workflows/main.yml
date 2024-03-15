@@ -11,15 +11,21 @@ jobs:
       with:
         python-version: '3.10'
     - run: python -v
-    - run: mkdir -p /root/.arduino15/package/SiliconLabs/1.1.0
 
+    - name: Checkout this repo
+      uses: actions/checkout@v4
+      with:
+        path: 'scripts'
+
+    - run: mkdir -p arduino/packages/SiliconLabs/hardware/siliconlabs/1.0.0
     - name: Checkout another repo
       uses: actions/checkout@v4
       with:
         repository: 'SiliconLabs/arduino'
         ref: 'main'
         # lfs: 'true'
-        path: '/root/.arduino15/package/SiliconLabs/1.1.0'
+        path: 'arduino/packages/SiliconLabs/hardware/siliconlabs/1.0.0'
+        # path: 'arduino'
 
     - name: Install arduino-cli
       run: |
@@ -28,9 +34,21 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         ls tools
         ./tools/arduino-cli core list
-        ./tools/arduino-cli config dump
-      
-    - run: ls /root/.arduino15
+        ./tools/arduino-cli board listall bgm220 --config-file scripts/arduino-cli.yaml
+
+    - name: Install gcc_12
+      run: |
+        # mkdir -p arduino/packages/SiliconLabs/tools/gcc_12
+        mkdir -p tools/gcc_12
+        curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
+        tar -xvf gcc.tgz -C tools/gcc_12
+        ls tools/gcc_12
+        # mv 
+
+    - name: Compile example
+      run: |
+        ./tools/arduino-cli core list --libraries arduino
+        ./tools/arduino-cli compile -b siliconlabs:bgm220 libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino --libraries arduino
     - run: python arduino/test/test_build.py "quick"
 
 # jobs:
@@ -55,3 +73,11 @@ jobs:
   #   steps:
   #     - run: brew install ninja 
   #     - run: ninja --version
+
+      # - name: Download articats
+      #   uses: actions/download-artifact@v2
+      # - name: Place artifacts
+      #   shell: bash
+      #   run: |
+      #     rm -rf dist
+      #     mv artifact/* ./
