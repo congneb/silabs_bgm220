@@ -6,7 +6,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
-      - name : Checkout another repo
+      - name: Checkout another repo
         uses: actions/checkout@v4
         with:
           repository: 'SiliconLabs/arduino'
