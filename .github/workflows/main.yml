@@ -18,9 +18,18 @@ jobs:
         repository: 'SiliconLabs/arduino'
         ref: 'main'
         # lfs: 'true'
-        path: 'arduino'
+        path: '/root/.arduino15/package/SiliconLabs/1.1.0'
+
+    - name: Install arduino-cli
+      run: |
+        mkdir -p tools
+        curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
+        tar -xvf arduino_cli.tgz -C tools
+        ls tools
+        ./tools/arduino-cli core list
+        ./tools/arduino-cli config dump
       
-    - run: ls arduino
+    - run: ls /root/.arduino15
     - run: python arduino/test/test_build.py "quick"
 
 # jobs:
