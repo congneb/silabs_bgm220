@@ -12,6 +12,11 @@ jobs:
         python-version: '3.10'
     - run: python -v
 
+    - name: Install some env
+      run: |
+        apt-get install git-lfs -y
+        git lfs install --skip-repo
+        
     - name: Checkout this repo
       uses: actions/checkout@v4
       with:
