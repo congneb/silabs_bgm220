@@ -6,12 +6,22 @@ jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+      run: python -v
+
     - name: Checkout another repo
       uses: actions/checkout@v4
       with:
         repository: 'SiliconLabs/arduino'
         ref: 'main'
-    - run: ls .
+        lfs: 'true'
+        path: 'arduino'
+      
+      run: ls arduino
+      run: python arduino/test/test_build.py "quick"
 
 # jobs:
 #   linux:
