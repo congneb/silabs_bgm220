@@ -11,6 +11,7 @@ jobs:
       with:
         python-version: '3.10'
     - run: python -v
+    - run: mkdir -p /root/.arduino15/package/SiliconLabs/1.1.0
 
     - name: Checkout another repo
       uses: actions/checkout@v4
