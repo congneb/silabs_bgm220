@@ -3,15 +3,26 @@ name: CI
 on: [push]
 
 jobs:
-  linux:
+  my_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout another repo
-        uses: actions/checkout@v4
-        with:
-          repository: 'SiliconLabs/arduino'
-          ref: 'main'
-        - run: ls .
+    - name: Checkout another repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'SiliconLabs/arduino'
+        ref: 'main'
+    - run: ls .
+
+# jobs:
+#   linux:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout another repo
+#         uses: actions/checkout@v4
+#         with:
+#           repository: 'SiliconLabs/arduino'
+#           ref: 'main'
+#         - run: ls .
 
   # windows:
   #   runs-on: windows-latest
