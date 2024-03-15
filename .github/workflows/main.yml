@@ -17,14 +17,14 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: mkdir -p arduino/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
     - name: Checkout another repo
       uses: actions/checkout@v4
       with:
         repository: 'SiliconLabs/arduino'
         ref: 'main'
         # lfs: 'true'
-        path: 'arduino/packages/SiliconLabs/hardware/siliconlabs/1.0.0'
+        path: 'arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0'
         # path: 'arduino'
 
     - name: Install arduino-cli
@@ -34,6 +34,7 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         ls tools
         ./tools/arduino-cli core list
+        echo "================="
         ./tools/arduino-cli board listall bgm220 --config-file scripts/arduino-cli.yaml
 
     - name: Install gcc_12
