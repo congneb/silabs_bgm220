@@ -31,12 +31,12 @@ jobs:
       run: |
         ls scripts
         echo "================="
-        ls 
-        arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+        ls arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
         echo "================="
         mkdir -p tools
         curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
         tar -xvf arduino_cli.tgz -C tools
+        echo "================="
         ls tools
         ./tools/arduino-cli core list
         echo "================="
