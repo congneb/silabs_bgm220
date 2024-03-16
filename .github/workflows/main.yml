@@ -28,9 +28,9 @@ jobs:
       with:
         repository: 'SiliconLabs/arduino'
         ref: 'main'
-        lfs: true
+        # lfs: true
         path: 'arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0'
-    # - run: git lfs pull
+    - run: git lfs pull
 
     - name: Install arduino-cli
       run: |
