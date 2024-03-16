@@ -22,7 +22,7 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs
+    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
@@ -31,7 +31,7 @@ jobs:
         echo "================="
         ls $arduino_lib_dir
       env:
-        arduino_silabs_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs
+        arduino_silabs_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs
 
     - name: Install arduino-cli
       run: |
@@ -61,8 +61,8 @@ jobs:
         ls output
       env:
         config_file: scripts/arduino-cli.yaml
-        variant: SiliconLabs:siliconlabs:bgm220explorerkit_precomp
-        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0 
+        variant: SiliconLabs:silabs:bgm220explorerkit_precomp
+        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
         project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
 
     - run: mkdir -p arduino/temp
@@ -82,7 +82,7 @@ jobs:
         cd $arduino_lib_dir/test
         python test_build.py "quick"
       env:
-        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
 
 # jobs:
 #   linux:

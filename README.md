@@ -44,3 +44,9 @@ set CONFIG_PATH=E:\Soft\arduino-1.8.9-windows\arduino_cli\arduino-cli.yaml<br>
 set ARD_LIB_DIR=E:\Soft\arduino-1.8.9-windows\arduino_cli\Arduino15\packages\SiliconLabs\hardware\siliconlabs\1.0.0<br>
 
 arduino-cli.exe compile --config-file %CONFIG_PATH% -b SiliconLabs:siliconlabs:bgm220explorerkit_precomp %EXAMPLE_PATH% --output-dir E:\Soft\arduino-1.8.9-windows\arduino_cli\out --libraries %ARD_LIB_DIR%
+
+<br>
+=================<br>
+Other syntax:<br>
+https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
