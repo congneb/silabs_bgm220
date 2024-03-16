@@ -65,7 +65,11 @@ jobs:
         arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0 
         project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
 
-    - run: python arduino/test/test_build.py "quick"
+    - name: Run script test
+      run: |
+        python $arduino_lib_dir/test/test_build.py "quick"
+      env:
+        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
 
 # jobs:
 #   linux:
