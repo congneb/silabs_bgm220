@@ -78,7 +78,7 @@ jobs:
         cp -r arduino/temp/test $arduino_lib_dir
         ls $arduino_lib_dir/test
         echo "================="
-        export PATH=./tools:$PATH
+        export PATH=$GITHUB_WORKSPACE/tools:$PATH
         cd $arduino_lib_dir/test
         python test_build.py "quick"
       env:
