@@ -22,13 +22,16 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
-        unzip arduino.zip -d arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0 > /dev/null
+        unzip arduino.zip -d $arduino_silabs_dir > /dev/null
+        mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
         echo "================="
-        ls arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
+        ls $arduino_lib_dir
+      env:
+        arduino_silabs_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs
 
     - name: Install arduino-cli
       run: |
