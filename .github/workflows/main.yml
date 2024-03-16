@@ -78,7 +78,7 @@ jobs:
         cp -r arduino/temp/test $arduino_lib_dir
         ls $arduino_lib_dir/test
         echo "================="
-        export PATH=tools/arduino-cli:$PATH
+        export PATH=./tools:$PATH
         python $arduino_lib_dir/test/test_build.py "quick"
       env:
         arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/siliconlabs/1.0.0
