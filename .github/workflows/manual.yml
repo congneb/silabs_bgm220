@@ -37,7 +37,7 @@ jobs:
     - name: Install arduino-cli
       run: |
         mkdir -p tools
-        curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
+        curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_macOS_64bit.tar.gz
         tar -xvf arduino_cli.tgz -C tools
         
         echo "================="
