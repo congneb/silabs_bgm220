@@ -1,6 +1,7 @@
-name: CI
+name: build_linux
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   my_job:
