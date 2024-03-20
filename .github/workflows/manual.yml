@@ -15,7 +15,7 @@ jobs:
 
     - name: Install some env
       run: |
-        sudo apt-get install git-lfs -y
+        brew install git-lfs
         git lfs install --skip-repo
 
     - name: Checkout this repo
