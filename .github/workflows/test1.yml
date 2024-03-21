@@ -69,16 +69,9 @@ jobs:
 
     - name: Run script test
       run: |
-        sudo cp -r arduino/temp/test $arduino_lib_dir
-        sudo ls $arduino_lib_dir/test/test_sketch
-        echo "================="
-        
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
-        export arduino_cli=$GITHUB_WORKSPACE/tools/arduino-cli
-        sudo python scripts/tool_modify.py $arduino_lib_dir/test $GITHUB_WORKSPACE/tools/arduino-cli
+        sudo python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli
         echo "========111 ========="
-        sudo ls $arduino_lib_dir/test
+        sudo ls arduino/temp/test
         # cd $arduino_lib_dir/test
-        sudo python $arduino_lib_dir/test/test_build_modified.py "quick"
-      env:
-        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
+        sudo python arduino/temp/test/test_build_modified.py "quick"
