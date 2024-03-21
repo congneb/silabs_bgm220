@@ -70,9 +70,8 @@ jobs:
     - name: Run script test
       run: |
         sudo cp -r arduino/temp/test $arduino_lib_dir
-        sudo ls $arduino_lib_dir/test
+        sudo ls $arduino_lib_dir/test/test_sketch
         echo "================="
-        sudo ls $GITHUB_WORKSPACE/tools
         
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
         export arduino_cli=$GITHUB_WORKSPACE/tools/arduino-cli
