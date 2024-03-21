@@ -1,0 +1,36 @@
+name: test_111
+
+on:
+  workflow_dispatch:
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    steps:
+
+    - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
+    - name: Donwload .zip core
+      run: |
+        curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
+        sudo unzip arduino.zip -d $arduino_silabs_dir > /dev/null
+        sudo mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
+        echo "================="
+        sudo ls $arduino_silabs_dir/1.0.0
+      env:
+        arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
+
+    - name: Install arduino-cli
+      run: |
+        mkdir -p tools
+        curl -L -o arduino_cli.tgz https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz
+        tar -xvf arduino_cli.tgz -C tools
+        
+        echo "================="
+        sudo ./tools/arduino-cli core list
+
+    - name: Run script test
+      run: |
+        export PATH=$GITHUB_WORKSPACE/tools:$PATH
+        export arduino-cli="tools/arduino-cli"
+
+        arduino-cli core list
