@@ -54,7 +54,7 @@ jobs:
         7z x -y gcc.zip -o"C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi"
         echo "================="
         dir C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi
-        ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi 12.2.rel1
+        ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi 12.2.rel1
 
     - name: Compile example
       run: |
