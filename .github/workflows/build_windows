@@ -1,0 +1,80 @@
+name: build_windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  my_job:
+    runs-on: windows-latest
+    steps:
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - run: python -v
+
+    - name: Checkout this repo
+      uses: actions/checkout@v4
+      with:
+        path: 'scripts'
+
+    - run: mkdir /root/.arduino15/packages/SiliconLabs/hardware/silabs
+    - name: Donwload .zip core
+      run: |
+        curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
+        7z x -y arduino.zip -o"$arduino_silabs_dir"
+        ren $arduino_silabs_dir/silabs-arduino 1.0.0
+        echo "================="
+        dir $arduino_silabs_dir/1.0.0
+      env:
+        arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
+
+    - name: Install arduino-cli
+      run: |
+        mkdir tools
+        curl -L -o arduino_cli.zip https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Windows_64bit.zip
+        7z x -y arduino_cli.zip -o"tools"
+        
+        echo "================="
+        $GITHUB_WORKSPACE/tools/arduino-cli.exe core list
+        $GITHUB_WORKSPACE/tools/arduino-cli.exe config dump
+    - name: Install gcc_12
+      run: |
+        mkdir /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        curl -L -o gcc.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi.zip
+        7z x -y gcc.zip -C"/root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi"
+        ren $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi 12.2.rel1
+      env:
+        arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+
+    - name: Compile example
+      run: |
+        mkdir output
+        $GITHUB_WORKSPACE/tools/arduino-cli.exe compile -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
+        echo "================="
+        dir output
+      env:
+        variant: SiliconLabs:silabs:bgm220explorerkit_precomp
+        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
+        project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
+
+    #- run: mkdir arduino/temp
+    - name: Checkout another repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'SiliconLabs/arduino'
+        ref: 'main'
+        path: 'arduino/temp'
+
+    - name: Run script test
+      run: |
+        echo $GITHUB_WORKSPACE
+        dir arduino/temp
+        echo "======== 000 ========="
+        xcopy arduino/temp/test/test_sketch $GITHUB_WORKSPACE
+        dir $GITHUB_WORKSPACE
+        
+        python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli.exe
+        echo "========111 ========="
+        dir arduino/temp/test
+        python arduino/temp/test/test_build_modified.py "quick"
