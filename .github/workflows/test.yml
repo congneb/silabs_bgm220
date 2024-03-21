@@ -26,7 +26,7 @@ jobs:
         sudo unzip arduino.zip -d $arduino_silabs_dir > /dev/null
         sudo mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
         echo "================="
-        sudo ls $arduino_lib_dir
+        sudo ls $arduino_silabs_dir/1.0.0
       env:
         arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
 
