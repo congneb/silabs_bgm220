@@ -32,10 +32,12 @@ jobs:
         tools\arduino-cli.exe config dump
 
     - name: pre-build
-      if: (exist C:\Users\runneradmin\AppData\Local\Arduino15)
-      run: | 
-        rmdir C:\Users\runneradmin\AppData\Local\Arduino15 /S /Q
-        mkdir C:\Users\runneradmin\AppData\Local\Arduino15
+      run: |
+        $fileExists = Test-Path -Path C:\Users\runneradmin\AppData\Local\Arduino15
+        if ($fileExists) {
+            rmdir C:\Users\runneradmin\AppData\Local\Arduino15 /S /Q
+            mkdir C:\Users\runneradmin\AppData\Local\Arduino15
+        }
 
     - name: Donwload .zip core
       run: |
