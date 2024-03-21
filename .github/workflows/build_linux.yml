@@ -41,9 +41,9 @@ jobs:
         ./tools/arduino-cli config dump
     - name: Install gcc_12
       run: |
-        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        sudo mkdir -p $arduino_gcc_dir
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
-        sudo tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        sudo tar -xvf gcc.tgz -C $arduino_gcc_dir > /dev/null
         sudo mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
       env:
         arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
