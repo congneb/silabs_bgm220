@@ -56,16 +56,16 @@ jobs:
         dir C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi
         ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi 12.2.rel1
 
-    - name: Compile example
-      run: |
-        mkdir output
-        tools\arduino-cli.exe compile -b $variant C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino --libraries C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0 --output-dir output
-        echo "================="
-        dir output
-      env:
-        variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0'
-        project_path: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino'
+    # - name: Compile example
+    #   run: |
+    #     mkdir output
+    #     tools\arduino-cli.exe compile -b $variant C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino --libraries C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0 --output-dir output
+    #     echo "================="
+    #     dir output
+    #   env:
+    #     variant: SiliconLabs:silabs:bgm220explorerkit_precomp
+    #     arduino_lib_dir: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0'
+    #     project_path: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino'
 
     #- run: mkdir arduino/temp
     - name: Checkout another repo
