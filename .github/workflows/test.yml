@@ -13,17 +13,13 @@ jobs:
         python-version: '3.10'
     - run: python -v
 
-    - name: Install some env
-      run: |
-        sudo apt-get install git-lfs -y
-        git lfs install --skip-repo
 
     - name: Checkout this repo
       uses: actions/checkout@v4
       with:
         path: 'scripts'
 
-    - run: mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
+    - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
@@ -45,7 +41,7 @@ jobs:
 
     - name: Install gcc_12
       run: |
-        mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
         tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
         mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
