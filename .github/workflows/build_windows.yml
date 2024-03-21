@@ -59,7 +59,7 @@ jobs:
     - name: Compile example
       run: |
         mkdir output
-        tools\arduino-cli.exe compile -b $variant $project_path --libraries $arduino_lib_dir --output-dir output
+        tools\arduino-cli.exe compile -b $variant C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino --libraries C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0 --output-dir output
         echo "================="
         dir output
       env:
