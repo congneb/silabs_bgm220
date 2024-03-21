@@ -18,6 +18,9 @@ jobs:
       with:
         path: 'scripts'
 
+    - run: echo $GITHUB_WORKSPACE
+    - run: dir $GITHUB_WORKSPACE
+    
     - run: mkdir /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
