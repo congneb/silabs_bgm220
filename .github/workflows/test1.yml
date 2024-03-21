@@ -38,7 +38,7 @@ jobs:
         
         echo "================="
         sudo ./tools/arduino-cli core list
-        ./tools/arduino-cli config dump
+        sudo ./tools/arduino-cli config dump
     - name: Install gcc_12
       run: |
         sudo mkdir -p /home/runner/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
