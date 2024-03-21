@@ -1,4 +1,4 @@
-name: build_linux
+name: main_linux
 
 on:
   workflow_dispatch:
