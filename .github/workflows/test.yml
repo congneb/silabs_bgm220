@@ -72,10 +72,10 @@ jobs:
         sudo cp -r arduino/temp/test $arduino_lib_dir
         sudo ls $arduino_lib_dir/test
         echo "================="
-        sudo ls $GITHUB_WORKSPACE/tools
+        sudo ls $GITHUB_WORKSPACE
         sudo chmod +x $GITHUB_WORKSPACE/tools
         
-        export PATH=$GITHUB_WORKSPACE/tools:$PATH
+        export PATH=tools:$PATH
         # cd $arduino_lib_dir/test
         sudo python $arduino_lib_dir/test/test_build.py "quick"
       env:
