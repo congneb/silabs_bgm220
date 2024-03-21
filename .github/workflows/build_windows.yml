@@ -59,13 +59,13 @@ jobs:
     - name: Compile example
       run: |
         mkdir output
-        tools\arduino-cli.exe compile -b $variant $arduino_lib_dir\$project_path --libraries $arduino_lib_dir --output-dir output
+        tools\arduino-cli.exe compile -b $variant $project_path --libraries $arduino_lib_dir --output-dir output
         echo "================="
         dir output
       env:
         variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0 
-        project_path: libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino
+        arduino_lib_dir: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0'
+        project_path: 'C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0\libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino'
 
     #- run: mkdir arduino/temp
     - name: Checkout another repo
