@@ -35,7 +35,7 @@ jobs:
       run: |
         $fileExists = Test-Path -Path C:\Users\runneradmin\AppData\Local\Arduino15
         if ($fileExists) {
-            rmdir /S /Q C:\Users\runneradmin\AppData\Local\Arduino15
+            Remove-Item -Recurse -Force -Path C:\Users\runneradmin\AppData\Local\Arduino15
             mkdir C:\Users\runneradmin\AppData\Local\Arduino15
         }
 
