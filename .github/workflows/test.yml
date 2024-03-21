@@ -76,4 +76,4 @@ jobs:
         sudo cd $arduino_lib_dir/test
         sudo python test_build.py "quick"
       env:
-        arduino_lib_dir: root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
+        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
