@@ -37,8 +37,8 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         
         echo "================="
-        ./tools/arduino-cli core list
-
+        sudo ./tools/arduino-cli core list
+        ./tools/arduino-cli config dump
     - name: Install gcc_12
       run: |
         sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
