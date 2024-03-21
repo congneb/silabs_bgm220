@@ -18,9 +18,18 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: echo $GITHUB_WORKSPACE
+
     - run: dir $GITHUB_WORKSPACE
-    
+    - name: Install arduino-cli
+      run: |
+        mkdir tools
+        curl -L -o arduino_cli.zip https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Windows_64bit.zip
+        7z x -y arduino_cli.zip -o"tools"
+        
+        echo "================="
+        $GITHUB_WORKSPACE/tools/arduino-cli.exe core list
+        $GITHUB_WORKSPACE/tools/arduino-cli.exe config dump
+        
     - run: mkdir /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
