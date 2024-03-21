@@ -44,7 +44,7 @@ jobs:
 
         dir tools
         echo "================="
-        tools\arduino-cli.exe core list
+        tools\arduino-cli.exe board listall bgm220
         tools\arduino-cli.exe config dump
 
     - name: Install gcc_12
@@ -64,7 +64,7 @@ jobs:
         dir output
       env:
         variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: C:\Users\runneradmin\AppData\Local\Arduino15\1.0.0 
+        arduino_lib_dir: C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0 
         project_path: libraries\ezBLE\examples\ezBLE_callbacks\ezBLE_callbacks.ino
 
     #- run: mkdir arduino/temp
