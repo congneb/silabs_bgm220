@@ -23,14 +23,14 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: brew mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
+    - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
-        brew unzip arduino.zip -d $arduino_silabs_dir > /dev/null
-        brew mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
+        sudo unzip arduino.zip -d $arduino_silabs_dir > /dev/null
+        sudo mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
         echo "================="
-        brew ls $arduino_silabs_dir
+        sudo ls $arduino_silabs_dir
       env:
         arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
 
@@ -41,24 +41,24 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         
         echo "================="
-        brew ./tools/arduino-cli board listall bgm220
+        sudo ./tools/arduino-cli board listall bgm220
 
     - name: Install gcc_12
       run: |
-        brew mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi.tar.xz
-        brew tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
-        brew mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
+        sudo tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        sudo mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
 
         echo "======================"
-        brew ls $arduino_gcc_dir/12.2.rel1
+        sudo ls $arduino_gcc_dir/12.2.rel1
       env:
         arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
 
     - name: Compile example
       run: |
         mkdir -p output
-        brew ./tools/arduino-cli compile -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
+        sudo ./tools/arduino-cli compile -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
         echo "================="
         ls output
       env:
@@ -82,7 +82,7 @@ jobs:
         cp -r arduino/temp/test/test_sketch $GITHUB_WORKSPACE
         ls $GITHUB_WORKSPACE
         
-        brew python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli
+        sudo python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli
         echo "========111 ========="
         ls arduino/temp/test
-        brew python arduino/temp/test/test_build_modified.py "quick"
+        sudo python arduino/temp/test/test_build_modified.py "quick"
