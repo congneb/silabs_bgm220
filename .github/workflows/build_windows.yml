@@ -42,21 +42,17 @@ jobs:
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
-        7z x -y arduino.zip -o"$arduino_silabs_dir"
-        ren $arduino_silabs_dir\silabs-arduino 1.0.0
+        7z x -y arduino.zip -o"C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs"
+        ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\silabs-arduino 1.0.0
         echo "================="
-        dir $arduino_silabs_dir\1.0.0
-      env:
-        arduino_silabs_dir: C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs
+        dir C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0
 
     - name: Install gcc_12
       run: |
         mkdir $arduino_gcc_dir
         curl -L -o gcc.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi.zip
-        7z x -y gcc.zip -C"$arduino_gcc_dir"
-        ren $arduino_gcc_dir\arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi 12.2.rel1
-      env:
-        arduino_gcc_dir: C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi
+        7z x -y gcc.zip -C"C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi"
+        ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi 12.2.rel1
 
     - name: Compile example
       run: |
