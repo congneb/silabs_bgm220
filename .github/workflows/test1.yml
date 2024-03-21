@@ -30,8 +30,8 @@ jobs:
 
     - name: Run script test
       run: |
-        export PATH=./tools:$PATH
-        env
+        export PATH=tools:$PATH
+        which arduino-cli
 
         arduino-cli core list
 
