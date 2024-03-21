@@ -20,17 +20,6 @@ jobs:
 
 
     - run: dir $GITHUB_WORKSPACE
-    - name: Install arduino-cli
-      run: |
-        mkdir tools
-        curl -L -o arduino_cli.zip https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Windows_64bit.zip
-        7z x -y arduino_cli.zip -o"tools"
-
-        dir tools
-        echo "================="
-        tools\arduino-cli.exe core list
-        tools\arduino-cli.exe config dump
-
     - name: pre-build
       run: |
         $fileExists = Test-Path -Path C:\Users\runneradmin\AppData\Local\Arduino15
@@ -47,9 +36,20 @@ jobs:
         echo "================="
         dir C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\hardware\silabs\1.0.0
 
+    - name: Install arduino-cli
+      run: |
+        mkdir tools
+        curl -L -o arduino_cli.zip https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Windows_64bit.zip
+        7z x -y arduino_cli.zip -o"tools"
+
+        dir tools
+        echo "================="
+        tools\arduino-cli.exe core list
+        tools\arduino-cli.exe config dump
+
     - name: Install gcc_12
       run: |
-        mkdir $arduino_gcc_dir
+        mkdir C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi
         curl -L -o gcc.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi.zip
         7z x -y gcc.zip -C"C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi"
         ren C:\Users\runneradmin\AppData\Local\Arduino15\packages\SiliconLabs\tools\gcc-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi 12.2.rel1
