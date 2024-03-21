@@ -34,3 +34,6 @@ jobs:
         env
 
         arduino-cli core list
+
+        echo "================="
+        sudo ./tools/arduino-cli core list
