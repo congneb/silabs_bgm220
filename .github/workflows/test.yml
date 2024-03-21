@@ -73,10 +73,11 @@ jobs:
         sudo ls $arduino_lib_dir/test
         echo "================="
         sudo ls $GITHUB_WORKSPACE
-        sudo chmod +x $GITHUB_WORKSPACE/tools
+        # sudo chmod +x $GITHUB_WORKSPACE/tools
         
-        export PATH=tools:$PATH
-        # cd $arduino_lib_dir/test
+        export PATH=$GITHUB_WORKSPACE/tools:$PATH
+        su -
+        cd $arduino_lib_dir/test
         sudo python $arduino_lib_dir/test/test_build.py "quick"
       env:
         arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
