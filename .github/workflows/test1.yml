@@ -76,7 +76,7 @@ jobs:
         
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
         export arduino_cli=$GITHUB_WORKSPACE/tools/arduino-cli
-        sudo python scripts/tool_modify.py $arduino_lib_dir/test
+        sudo python scripts/tool_modify.py $arduino_lib_dir/test $GITHUB_WORKSPACE/tools/arduino-cli
         echo "========111 ========="
         sudo ls $arduino_lib_dir/test
         # cd $arduino_lib_dir/test
