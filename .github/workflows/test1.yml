@@ -1,4 +1,4 @@
-name: test_111
+name: test1
 
 on:
   workflow_dispatch:
@@ -7,6 +7,17 @@ jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - run: python -v
+
+
+    - name: Checkout this repo
+      uses: actions/checkout@v4
+      with:
+        path: 'scripts'
 
     - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
@@ -27,11 +38,48 @@ jobs:
         
         echo "================="
         sudo ./tools/arduino-cli core list
+        ./tools/arduino-cli config dump
+    - name: Install gcc_12
+      run: |
+        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
+        sudo tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        sudo mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
+      env:
+        arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+
+    - name: Compile example
+      run: |
+        mkdir -p output
+        sudo ./tools/arduino-cli compile -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
+        echo "================="
+        ls output
+      env:
+        variant: SiliconLabs:silabs:bgm220explorerkit_precomp
+        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
+        project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
+
+    - run: mkdir -p arduino/temp
+    - name: Checkout another repo
+      uses: actions/checkout@v4
+      with:
+        repository: 'SiliconLabs/arduino'
+        ref: 'main'
+        path: 'arduino/temp'
 
     - name: Run script test
       run: |
-        export PATH=tools:$PATH
-        which arduino-cli
-
-        arduino-cli core list
-
+        sudo cp -r arduino/temp/test $arduino_lib_dir
+        sudo ls $arduino_lib_dir/test
+        echo "================="
+        sudo ls $GITHUB_WORKSPACE/tools
+        
+        # export PATH=$GITHUB_WORKSPACE/tools:$PATH
+        export arduino_cli=$GITHUB_WORKSPACE/tools/arduino-cli
+        sudo python tool_modify.py $arduino_lib_dir/test
+        echo "========111 ========="
+        sudo ls $arduino_lib_dir/test
+        # cd $arduino_lib_dir/test
+        sudo python $arduino_lib_dir/test/test_build_modified.py "quick"
+      env:
+        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
