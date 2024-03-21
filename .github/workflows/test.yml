@@ -76,7 +76,7 @@ jobs:
         # sudo chmod +x $GITHUB_WORKSPACE/tools
         
         export PATH=$GITHUB_WORKSPACE/tools:$PATH
-        su -
+        sudo su
         cd $arduino_lib_dir/test
         sudo python $arduino_lib_dir/test/test_build.py "quick"
       env:
