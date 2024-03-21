@@ -30,9 +30,13 @@ jobs:
         echo "================="
         tools\arduino-cli.exe core list
         tools\arduino-cli.exe config dump
-        
-    - run: if exist "C:\Users\runneradmin\AppData\Local\Arduino15" ( rmdir "C:\Users\runneradmin\AppData\Local\Arduino15" /S /Q )
-    - run: mkdir C:\Users\runneradmin\AppData\Local\Arduino15
+
+    - name: pre-build
+      if: (exist C:\Users\runneradmin\AppData\Local\Arduino15)
+      run: | 
+        rmdir C:\Users\runneradmin\AppData\Local\Arduino15 /S /Q
+        mkdir C:\Users\runneradmin\AppData\Local\Arduino15
+
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
