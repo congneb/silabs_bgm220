@@ -69,6 +69,12 @@ jobs:
 
     - name: Run script test
       run: |
+        echo $GITHUB_WORKSPACE
+        ls arduino/temp
+        echo "======== 000 ========="
+        cp -r arduino/temp/test/test_sketch $GITHUB_WORKSPACE
+        ls $GITHUB_WORKSPACE
+        
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
         sudo python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli
         echo "========111 ========="
