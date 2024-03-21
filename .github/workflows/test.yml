@@ -19,7 +19,7 @@ jobs:
       with:
         path: 'scripts'
 
-    - run: sudo mkdir -p /home/runner/.arduino15/packages/SiliconLabs/hardware/silabs
+    - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
@@ -28,7 +28,7 @@ jobs:
         echo "================="
         sudo ls $arduino_silabs_dir/1.0.0
       env:
-        arduino_silabs_dir: /home/runner/.arduino15/packages/SiliconLabs/hardware/silabs
+        arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
 
     - name: Install arduino-cli
       run: |
@@ -37,16 +37,16 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         
         echo "================="
-        ./tools/arduino-cli board listall bgm220
-
+        sudo ./tools/arduino-cli core list
+        ./tools/arduino-cli config dump
     - name: Install gcc_12
       run: |
-        sudo mkdir -p /home/runner/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
-        sudo tar -xvf gcc.tgz -C /home/runner/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        sudo tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
         sudo mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
       env:
-        arduino_gcc_dir: /home/runner/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
 
     - name: Compile example
       run: |
@@ -56,7 +56,7 @@ jobs:
         ls output
       env:
         variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: /home/runner/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
+        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
         project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
 
     - run: mkdir -p arduino/temp
