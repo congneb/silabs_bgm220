@@ -31,7 +31,7 @@ jobs:
         tools\arduino-cli.exe core list
         tools\arduino-cli.exe config dump
         
-    - run: if exist C:\Users\runneradmin\AppData\Local\Arduino15 (rmdir C:\Users\runneradmin\AppData\Local\Arduino15 /S /Q)
+    - run: if exist C:\Users\runneradmin\AppData\Local\Arduino15 ( rmdir C:\Users\runneradmin\AppData\Local\Arduino15 /S /Q )
     - run: mkdir C:\Users\runneradmin\AppData\Local\Arduino15
     - name: Donwload .zip core
       run: |
