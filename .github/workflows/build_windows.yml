@@ -27,8 +27,8 @@ jobs:
         7z x -y arduino_cli.zip -o"tools"
         
         echo "================="
-        $GITHUB_WORKSPACE/tools/arduino-cli.exe core list
-        $GITHUB_WORKSPACE/tools/arduino-cli.exe config dump
+        $GITHUB_WORKSPACE\tools\arduino-cli.exe core list
+        $GITHUB_WORKSPACE\tools\arduino-cli.exe config dump
         
     - run: mkdir /root/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
