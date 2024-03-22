@@ -17,22 +17,21 @@ jobs:
       run: |
         brew install git-lfs
         git lfs install --skip-repo
-
     - name: Checkout this repo
       uses: actions/checkout@v4
       with:
         path: 'scripts'
 
-    - run: sudo mkdir -p /root/.arduino15/packages/SiliconLabs/hardware/silabs
+    - run: mkdir -p arduino/.arduino15/packages/SiliconLabs/hardware/silabs
     - name: Donwload .zip core
       run: |
         curl -L -o arduino.zip https://github.com/SiliconLabs/arduino/releases/download/1.0.0/silabs_arduino_core-1.0.0.zip
-        sudo unzip arduino.zip -d $arduino_silabs_dir > /dev/null
-        sudo mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
+        unzip arduino.zip -d $arduino_silabs_dir > /dev/null
+        mv $arduino_silabs_dir/silabs-arduino $arduino_silabs_dir/1.0.0
         echo "================="
-        sudo ls $arduino_silabs_dir
+        ls $arduino_lib_dir
       env:
-        arduino_silabs_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs
+        arduino_silabs_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs
 
     - name: Install arduino-cli
       run: |
@@ -41,29 +40,30 @@ jobs:
         tar -xvf arduino_cli.tgz -C tools
         
         echo "================="
-        sudo ./tools/arduino-cli board listall bgm220
-
+        ./tools/arduino-cli core list
+        echo "================="
+        ./tools/arduino-cli board listall bgm220 --config-file scripts/arduino-cli.yaml
     - name: Install gcc_12
       run: |
-        sudo mkdir -p /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        mkdir -p arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
         curl -L -o gcc.tgz https://github.com/SiliconLabs/arduino/releases/download/1.0.0/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi.tar.xz
-        sudo tar -xvf gcc.tgz -C /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
-        sudo mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
-
+        tar -xvf gcc.tgz -C arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi > /dev/null
+        mv $arduino_gcc_dir/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi $arduino_gcc_dir/12.2.rel1
         echo "======================"
-        sudo ls $arduino_gcc_dir/12.2.rel1
+        ls $arduino_gcc_dir/12.2.rel1
       env:
-        arduino_gcc_dir: /root/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
+        arduino_gcc_dir: arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
 
     - name: Compile example
       run: |
         mkdir -p output
-        sudo ./tools/arduino-cli compile -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
+        ./tools/arduino-cli compile --config-file $config_file -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
         echo "================="
         ls output
       env:
+        config_file: scripts/arduino-cli.yaml
         variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: /root/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
+        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
         project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
 
     - run: mkdir -p arduino/temp
@@ -82,7 +82,9 @@ jobs:
         cp -r arduino/temp/test/test_sketch $GITHUB_WORKSPACE
         ls $GITHUB_WORKSPACE
         
-        sudo python scripts/tool_modify.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli
+        # export PATH=$GITHUB_WORKSPACE/tools:$PATH
+        sudo python scripts/tool_modify_v2.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli scripts/arduino-cli.yaml
         echo "========111 ========="
-        ls arduino/temp/test
+        sudo ls arduino/temp/test
+        # cd $arduino_lib_dir/test
         sudo python arduino/temp/test/test_build_modified.py "quick"
