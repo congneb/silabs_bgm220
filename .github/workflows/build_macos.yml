@@ -54,17 +54,17 @@ jobs:
       env:
         arduino_gcc_dir: arduino/.arduino15/packages/SiliconLabs/tools/gcc-arm-none-eabi
 
-    - name: Compile example
-      run: |
-        mkdir -p output
-        ./tools/arduino-cli compile --config-file $config_file -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
-        echo "================="
-        ls output
-      env:
-        config_file: scripts/arduino-cli.yaml
-        variant: SiliconLabs:silabs:bgm220explorerkit_precomp
-        arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
-        project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
+    # - name: Compile example
+    #   run: |
+    #     mkdir -p output
+    #     ./tools/arduino-cli compile --config-file $config_file -b $variant $arduino_lib_dir/$project_path --libraries $arduino_lib_dir --output-dir output
+    #     echo "================="
+    #     ls output
+    #   env:
+    #     config_file: scripts/arduino-cli.yaml
+    #     variant: SiliconLabs:silabs:bgm220explorerkit_precomp
+    #     arduino_lib_dir: arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0 
+    #     project_path: libraries/ezBLE/examples/ezBLE_callbacks/ezBLE_callbacks.ino
 
     - run: mkdir -p arduino/temp
     - name: Checkout another repo
@@ -85,6 +85,6 @@ jobs:
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
         sudo python scripts/tool_modify_v2.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli scripts/arduino-cli.yaml
         echo "========111 ========="
-        sudo ls arduino/temp/test
+        cat arduino/temp/test/test_build_modified.py
         # cd $arduino_lib_dir/test
         sudo python arduino/temp/test/test_build_modified.py "quick"
