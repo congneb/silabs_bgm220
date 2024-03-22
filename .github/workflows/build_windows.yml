@@ -86,4 +86,5 @@ jobs:
         python scripts\tool_modify.py arduino\temp\test tools\arduino-cli.exe
         echo "========111 ========="
         dir arduino\temp\test
+        type arduino\temp\test\test_build_modified.py
         python arduino\temp\test\test_build_modified.py "quick"
