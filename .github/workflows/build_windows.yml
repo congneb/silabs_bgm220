@@ -83,7 +83,7 @@ jobs:
         xcopy arduino\temp\test\test_sketch $GITHUB_WORKSPACE
         dir $GITHUB_WORKSPACE
         
-        python scripts\tool_modify.py arduino\temp\test tools\arduino-cli.exe
+        python scripts\tool_modify.py arduino\temp\test $GITHUB_WORKSPACE\tools\arduino-cli.exe
         echo "========111 ========="
         dir arduino\temp\test
         type arduino\temp\test\test_build_modified.py
