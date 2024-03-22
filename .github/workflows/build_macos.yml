@@ -80,13 +80,9 @@ jobs:
         ls $GITHUB_WORKSPACE
         
         # export PATH=$GITHUB_WORKSPACE/tools:$PATH
-        sudo python scripts/tool_modify_v2.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli scripts/arduino-cli.yaml
-        echo "========111 ========="
-        # cat arduino/temp/test/test_build_modified.py
+        mkdir -p output
+        sudo python scripts/tool_modify_v2.py arduino/temp/test $GITHUB_WORKSPACE/tools/arduino-cli scripts/arduino-cli.yaml $GITHUB_WORKSPACE/output
+        
         sudo python arduino/temp/test/test_build_modified.py "quick"
-        echo "======== 222 ========="
-        ls arduino/temp/test/test_sketch
-        echo "======== 333 ========="
-        ls arduino/temp/test
-        echo "======== 444 ========="
-        ls arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
+        ls output
+
