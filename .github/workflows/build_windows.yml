@@ -80,7 +80,8 @@ jobs:
         echo $GITHUB_WORKSPACE
         dir arduino\temp
         echo "======== 000 ========="
-        xcopy arduino\temp\test\test_sketch $env:GITHUB_WORKSPACE
+        mkdir $env:GITHUB_WORKSPACE\test_sketch
+        xcopy arduino\temp\test\test_sketch $env:GITHUB_WORKSPACE\test_sketch
         
         python scripts\tool_modify.py arduino\temp\test "D:/a/silabs_bgm220/silabs_bgm220/tools/arduino-cli.exe"
         echo "========111 ========="
