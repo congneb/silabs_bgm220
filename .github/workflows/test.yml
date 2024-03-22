@@ -9,12 +9,14 @@ jobs:
     steps:
     - name: Run script test
       run: |
-        set my_tool=$env:GITHUB_WORKSPACE/tools/arduino-cli.exe
-        ECHO %my_tool%
-        ECHO $my_tool
+        echo "my_tool=$env:GITHUB_WORKSPACE/tools/arduino-cli.exe" >> $env:GITHUB_ENV
+
+        ECHO $env:my_tool
         
-        ECHO $my_tool > var.txt
+        ECHO $env:my_tool > var.txt
         dir .
         powershell -command "(get-content var.txt) -replace '[\x5C]+', '/' | set-content var.txt"
-        set /p my_tool=<var.txt
-        ECHO $my_tool
+        set /p my_tool =< var.txt
+        echo "::set-output name=version::$(Get-Content var.txt)"
+        echo "====================="
+        ECHO ${{ steps.read_version.outputs.version }}
