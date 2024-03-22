@@ -9,7 +9,8 @@ jobs:
     steps:
     - name: Run script test
       run: |
-        echo $GITHUB_WORKSPACE
-        echo $GITHUB_WORKSPACE\tools\arduino-cli.exe
-
-        echo $env:GITHUB_WORKSPACE
+        set my_tool=$env:GITHUB_WORKSPACE/tools/arduino-cli.exe
+        echo %my_tool%>var.txt
+        powershell -command "(get-content var.txt) -replace '[\x5C]+', '/' | set-content var.txt"
+        set /p my_tool=<var.txt
+        echo %my_tool%
