@@ -82,7 +82,7 @@ jobs:
         echo "======== 000 ========="
         xcopy arduino\temp\test\test_sketch $env:GITHUB_WORKSPACE
         
-        python scripts\tool_modify.py $env:GITHUB_WORKSPACE\\arduino\\temp\\test $env:GITHUB_WORKSPACE\\tools\\arduino-cli.exe
+        python scripts\tool_modify.py "$env:GITHUB_WORKSPACE/arduino/temp/test" "$env:GITHUB_WORKSPACE/tools/arduino-cli.exe"
         echo "========111 ========="
         type arduino\temp\test\test_build_modified.py
         python arduino\temp\test\test_build_modified.py "quick"
