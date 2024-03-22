@@ -76,9 +76,6 @@ jobs:
 
     - name: Run script test
       run: |
-        echo $GITHUB_WORKSPACE
-        ls arduino/temp
-        echo "======== 000 ========="
         cp -r arduino/temp/test/test_sketch $GITHUB_WORKSPACE
         ls $GITHUB_WORKSPACE
         
@@ -87,4 +84,9 @@ jobs:
         echo "========111 ========="
         # cat arduino/temp/test/test_build_modified.py
         sudo python arduino/temp/test/test_build_modified.py "quick"
-        ls .
+        echo "======== 222 ========="
+        ls arduino/temp/test/test_sketch
+        echo "======== 333 ========="
+        ls arduino/temp/test
+        echo "======== 444 ========="
+        ls arduino/.arduino15/packages/SiliconLabs/hardware/silabs/1.0.0
