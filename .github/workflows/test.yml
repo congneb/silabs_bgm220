@@ -16,7 +16,6 @@ jobs:
         ECHO $env:my_tool > var.txt
         dir .
         powershell -command "(get-content var.txt) -replace '[\x5C]+', '/' | set-content var.txt"
-        set /p my_tool =< var.txt
         echo "::set-output name=version::$(Get-Content var.txt)"
         echo "====================="
         ECHO ${{ steps.read_version.outputs.version }}
