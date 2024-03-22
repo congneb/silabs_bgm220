@@ -80,11 +80,11 @@ jobs:
         echo $GITHUB_WORKSPACE
         dir arduino\temp
         echo "======== 000 ========="
-        xcopy arduino\temp\test\test_sketch $GITHUB_WORKSPACE
-        dir $GITHUB_WORKSPACE
+        xcopy arduino\temp\test\test_sketch $env:GITHUB_WORKSPACE
         
-        python scripts\tool_modify.py arduino\temp\test $env:GITHUB_WORKSPACE\tools\arduino-cli.exe
+        python scripts\tool_modify.py $env:GITHUB_WORKSPACE\arduino\temp\test $env:GITHUB_WORKSPACE\tools\arduino-cli.exe
         echo "========111 ========="
         dir arduino\temp\test
         type arduino\temp\test\test_build_modified.py
         python arduino\temp\test\test_build_modified.py "quick"
+        dir $env:GITHUB_WORKSPACE
