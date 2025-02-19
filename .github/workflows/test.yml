@@ -1,16 +1,15 @@
 name: test
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+     - .github/workflows/test.yml
 
 jobs:
   my_job:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Run script test
       run: |
-        echo "my_tool=$env:GITHUB_WORKSPACE/tools/arduino-cli.exe" >> $env:GITHUB_ENV
-        echo $env:my_tool>var.txt
-        powershell -command "(get-content var.txt) -replace '[\x5C]+', '/' | set-content var.txt"
-        set /p my_tool=<var.txt
-        echo $env:my_tool
+          sudo apt-get install git-lfs -y
+          git lfs install --skip-repo
